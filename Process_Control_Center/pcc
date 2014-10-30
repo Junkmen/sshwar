@@ -1,0 +1,32 @@
+#!/usr/bin/ruby
+
+args = Array.new()
+process_action = ""
+process_PID = 0
+
+ARGV.each do |arg|
+	case arg
+	when "-p" then process_action = "pause"
+	when "-r" then process_action = "resume"
+	when "-k" then process_action = "kill"
+	else args.push(arg) end
+end
+
+running_processes = `ps -e`
+
+running_processes.split("\n").each do |process|
+	args.each do |arg|
+		if process.include?(arg) then
+			case process_action
+			when "pause" then `kill -STOP #{process.to_i}` 
+			when "resume" then `kill -CONT #{process.to_i}`
+			when "kill" then `kill #{process.to_i}`
+			else 
+				puts "Please specify action: -k to kill, -p to pause, -r to resume."			
+			end
+		end
+	end
+end
+
+
+
