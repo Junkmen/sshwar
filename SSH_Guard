@@ -1,17 +1,29 @@
 #!/usr/bin/ruby
-
-def runGuard()
+args = Array.new
+ARGV.each do |arg|
+	args << arg
+end
+def runGuard(dir)
+	output = "pcc ssh -k"
+	if dir == true 
+		output = "ruby #{ARGV[1]} ssh - k"
+	end
 	while true
-		output = `pcc ssh -k`
+		`#{output}`
 		sleep(1)
 	end
 end
 
 isEnabled = false
-ARGV.each do |arg|
-	if arg == "-e" then isEnabled = true end
-	if arg == "-d" then isEnabled = false end
+arg1 = args.shift || "err"
+if (arg1) == "-e" 
+	isEnabled = true
+elsif (arg1) == "-d"
+	isEnabled = false 
+else
+	puts "Invalid command!"
 end
 
-if isEnabled then runGuard end
+
+if isEnabled then runGuard(File.file?(args.shift || "err")) end
 if not isEnabled then `pcc loprot -k&` end
