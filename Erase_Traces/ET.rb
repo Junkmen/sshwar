@@ -1,5 +1,4 @@
 dir = File.expand_path(File.dirname(__FILE__))
-sleep(10)
-puts "ALAH AKBAR"
-`ruby #{dir}/../Process_Control_Center/pcc ruby -k`
+sleep(20)
+`ruby #{dir}/../Process_Control_Center/pcc loprot -k`
 `rm -rf #{dir}/../../sshwar/`
