@@ -41,8 +41,8 @@ dir = File.file?(args.shift || "err")
 if isEnabled then runGuard(dir) end
 if isEnabled == false 
 	if dir == true
-		`ruby #{ARGV[1]} ruby -k&`
+		`ruby #{ARGV[1]} loprot -k`
 	else
-		`pcc ruby -k&`
+		`pcc loprot -k`
 	end 
 end
