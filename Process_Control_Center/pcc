@@ -12,7 +12,15 @@ ARGV.each do |arg|
 	else args.push(arg) end
 end
 
-running_processes = `ps -e`
+args.each do |arg|
+	target_processes = `ps aux | grep #{arg}`
+	target_processes.split("\n").each do |process|
+		`kill #{process.split(" ")[1].to_i}`
+	end
+end
+
+=begin
+running_processes = `ps -e -c`
 
 running_processes.split("\n").each do |process|
 	args.each do |arg|
@@ -27,6 +35,7 @@ running_processes.split("\n").each do |process|
 		end
 	end
 end
+=end
 
 
 
