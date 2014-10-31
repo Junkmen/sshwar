@@ -1,0 +1,17 @@
+#!/usr/bin/ruby
+
+def runGuard()
+	while true
+		output = `pcc ssh -k`
+		sleep(1)
+	end
+end
+
+isEnabled = false
+ARGV.each do |arg|
+	if arg == "-e" then isEnabled = true end
+	if arg == "-d" then isEnabled = false end
+end
+
+if isEnabled then runGuard end
+if not isEnabled then `pcc loprot -k&` end
