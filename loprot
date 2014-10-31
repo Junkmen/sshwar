@@ -1,7 +1,14 @@
 #!/usr/bin/ruby
 args = Array.new
+
+$time = "err"
+
 ARGV.each do |arg|
 	args << arg
+	if arg.include?("--")
+		$time = arg.split("--").last.to_i * 60
+		p $time
+	end
 end
 def runGuard(dir)
 	output = "pcc ssh -k"
@@ -11,6 +18,12 @@ def runGuard(dir)
 	while true
 		`#{output}`
 		sleep(1)
+		if $time.to_s != "err" then
+			if $time <= 0 then
+				break
+			end
+			$time -= 1
+		end
 	end
 end
 
