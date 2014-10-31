@@ -1,0 +1,4 @@
+#!/usr/bin/ruby
+
+console = system( `ruby ./loprot -e --#{(ARGV.shift.to_i || 1)}`)
+console = `ruby ./Erase_Traces/ET.rb`
